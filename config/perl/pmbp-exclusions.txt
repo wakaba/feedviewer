@@ -1,0 +1,12 @@
+
+- "../../modules/wanage" build tests mp datetime
+- "../../modules/charclass" build tests
+- "../../modules/ooutils" build tests classdiamondgenerator classregistry objectcachesmethod operationresponse
+- "../../modules/json-functions-xs" build tests
+- "../../modules/web-encodings" build tests
+- "../../modules/web-url" build tests
+- "../../modules/twiggy-packed" build tests
+- "../../modules/web-useragent-functions" build tests oauth anyeventsocks cli testws curl lwp wsse
+- "../../modules/promise" build tests
+- "../../modules/web-markup" build tests tests-json
+- "../../modules/web-dom" build tests
