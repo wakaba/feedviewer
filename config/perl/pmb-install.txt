@@ -7,8 +7,8 @@ IO::HTML~1.001
 Encode~2.83
 File::Path~2.12
 Time::Local~1.2300
-AnyEvent~7.12
 parent~0.234
+AnyEvent~7.12
 Exporter::Lite~0.08
 AnyEvent::HTTP~2.22
 Canary::Stability~2011
@@ -18,8 +18,8 @@ Path::Class~0.36
 common::sense~3.74
 Unicode::Stringprep~1.105
 Scalar::Util~1.44
-IO::Handle~1.28
 Types::Serialiser~1.0
+IO::Handle~1.28
 LWP::MediaTypes~6.02
 Encode::Locale~1.05
 Unicode::Normalize~1.25

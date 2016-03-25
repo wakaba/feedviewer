@@ -6,7 +6,12 @@ use Wanage::HTTP;
 use Warabe::App;
 use Promise;
 use Promised::File;
+use JSON::PS;
 use Web::UserAgent::Functions qw(http_get);
+use Web::URL::Canonicalize qw(url_to_canon_url);
+use Web::XML::Parser;
+use Web::DOM::Document;
+use Web::Feed::Parser;
 
 $ENV{LANG} = 'C';
 $ENV{TZ} = 'UTC';
@@ -39,6 +44,67 @@ sub main ($$) {
   if (@$path == 1 and $path->[0] eq 'css') {
     # /css
     return static $app, 'text/css; charset=utf-8', 'css.css';
+  }
+
+  if (@$path == 1 and $path->[0] eq 'viewer') {
+    # /viewer
+    $app->requires_request_method ({POST => 1});
+    my $url = $app->text_param ('url') // '';
+    $url = url_to_canon_url $url;
+    return Promise->new (sub {
+      my ($ok, $ng) = @_;
+      unless ($url =~ m{^https?://}) {
+        return $ng->({error => "Bad |url|: |$url|"});
+      }
+      http_get
+          url => $url,
+          max_redirect => 0,
+          timeout => 100,
+          anyevent => 1,
+          cb => sub {
+            my $res = $_[1];
+            if ($res->code == 200) {
+              $ok->($res);
+            } else {
+              $ng->({error => "Bad status: |@{[$res->code]}|"});
+            }
+          };
+    })->then (sub {
+      my $res = $_[0];
+      my $result = {};
+
+      my $doc = new Web::DOM::Document;
+      $doc->manakai_set_url ($url);
+      my $parser = Web::XML::Parser->new;
+      $parser->onerror (sub {
+#XXX
+      });
+      my $charset; # XXX
+      $parser->parse_byte_string ($charset, $res->content => $doc);
+
+      my $feeder = Web::Feed::Parser->new;
+      my $parsed = $feeder->parse_document ($doc);
+
+      $result->{url} = $url;
+      $result->{parsed} = $parsed;
+
+      $app->http->set_response_header
+          ('Content-Type', 'application/json; charset=utf-8');
+      local *Web::DateTime::TO_JSON = sub {
+        return ['datetime', $_[0]->to_unix_number];
+      };
+      $app->http->send_response_body_as_text (perl2json_chars $result);
+      return $app->http->close_response_body;
+    })->catch (sub {
+      if (ref $_[0] eq 'HASH') {
+        $app->http->set_response_header
+            ('Content-Type', 'application/json; charset=utf-8');
+        $app->http->send_response_body_as_text (perl2json_chars $_[0]);
+        return $app->http->close_response_body;
+      } else {
+        die $_[0];
+      }
+    });
   }
 
   return $app->send_error (404);

@@ -1,10 +1,17 @@
 <html lang=en>
 <title>Feed viewer</title>
-<link rel=stylesheet href=/css.css>
+<link rel=stylesheet href=/css>
 
 <h1>Feed viewer</h1>
 
-<form action=javascript:>
-  <p><label><strong>URL</strong>: <input type=url></label>
+<form action=javascript: onsubmit="
+  var fd = new FormData (this);
+  fetch ('/viewer', {method: 'POST', body: fd}).then (function (res) {
+    return res.json ();
+  }).then (function (json) {
+console.log(json);
+  });
+">
+  <p><label><strong>URL</strong>: <input type=url name=url></label>
   <p><button type=submit>Show</button>
 </form>

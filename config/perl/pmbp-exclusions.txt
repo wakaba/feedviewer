@@ -11,3 +11,5 @@
 - "../../modules/web-markup" build tests tests-json
 - "../../modules/web-dom" build tests
 - "../../modules/promised-file" build tests
+- "../../modules/json-ps" build tests
+- "../../modules/web-datetime" build tests
