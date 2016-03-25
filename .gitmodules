@@ -42,3 +42,6 @@
 	path = modules/web-dom
 	url = git://github.com/manakai/perl-web-dom
 	track = master
+[submodule "modules/promised-file"]
+	path = modules/promised-file
+	url = git://github.com/wakaba/perl-promised-file

@@ -5,12 +5,13 @@ JSON::XS~3.02
 Test::NoWarnings~1.04
 IO::HTML~1.001
 Encode~2.83
+File::Path~2.12
 Time::Local~1.2300
 AnyEvent~7.12
 parent~0.234
 Exporter::Lite~0.08
-Canary::Stability~2011
 AnyEvent::HTTP~2.22
+Canary::Stability~2011
 HTTP::Response~6.11
 File::Temp~0.2304
 Path::Class~0.36
@@ -22,6 +23,7 @@ Types::Serialiser~1.0
 LWP::MediaTypes~6.02
 Encode::Locale~1.05
 Unicode::Normalize~1.25
+Path::Tiny~0.084
 URI~1.71
 Test::Tester~0.114
 Time::HiRes~1.9732
@@ -30,3 +32,4 @@ Carp~1.38
 HTTP::Date~6.02
 Proc::Wait3~0.05
 MIME::Base64~3.15
+Cwd~3.62

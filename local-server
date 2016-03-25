@@ -1,0 +1,3 @@
+#!/bin/bash
+basedir=$(cd `dirname $0` && pwd)
+exec $basedir/plackup -p 4542 -t Twiggy::Packed bin/server.psgi
