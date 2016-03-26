@@ -85,6 +85,7 @@ sub main ($$) {
       my $feeder = Web::Feed::Parser->new;
       my $parsed = $feeder->parse_document ($doc);
 
+      $result->{ok} = 1;
       $result->{url} = $url;
       $result->{parsed} = $parsed;
 
@@ -92,6 +93,9 @@ sub main ($$) {
           ('Content-Type', 'application/json; charset=utf-8');
       local *Web::DateTime::TO_JSON = sub {
         return ['datetime', $_[0]->to_unix_number];
+      };
+      local *Web::DOM::DocumentFragment::TO_JSON = sub {
+        return ['node', $_[0]->inner_html];
       };
       $app->http->send_response_body_as_text (perl2json_chars $result);
       return $app->http->close_response_body;

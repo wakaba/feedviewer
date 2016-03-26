@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <html lang=en>
 <title>Feed viewer</title>
 <link rel=stylesheet href=/css>
@@ -6,12 +7,167 @@
 
 <form action=javascript: onsubmit="
   var fd = new FormData (this);
+  var status = document.querySelector ('.status');
+  status.classList.remove ('error');
+  status.querySelector ('.message').textContent = 'Loading...';
+  status.querySelector ('progress').hidden = false;
+  status.hidden = false;
   fetch ('/viewer', {method: 'POST', body: fd}).then (function (res) {
     return res.json ();
   }).then (function (json) {
-console.log(json);
+    if (json.ok) {
+      fillResult (json);
+      status.hidden = true;
+    } else {
+      status.classList.add ('error');
+      status.querySelector ('.message').textContent = json.error;
+      status.querySelector ('progress').hidden = true;
+    }
   });
+  history.replaceState (null, null, location.pathname + '?url=' + encodeURIComponent (elements.url.value));
 ">
-  <p><label><strong>URL</strong>: <input type=url name=url></label>
+  <p><label><strong>URL</strong>: <input type=url name=url required></label>
   <p><button type=submit>Show</button>
+
+  <p class=status hidden><progress></progress> <span class=message></span>
 </form>
+
+<section id=feed-props hidden>
+  <h1>Feed properties</h1>
+
+  <table>
+    <tbody>
+      <tr>
+        <th>Web page URL
+        <td data-prop=page_url>
+      <tr>
+        <th>Feed URL
+        <td data-prop=feed_url>
+      <tr>
+        <th>Previous feed URL
+        <td data-prop=prev_feed_url>
+      <tr>
+        <th>Next feed URL
+        <td data-prop=next_feed_url>
+    <tbody>
+      <tr>
+        <th>Title
+        <td data-prop=title>
+      <tr>
+        <th>Subtitle
+        <td data-prop=subtitle>
+      <tr>
+        <th>Description
+        <td data-prop=description>
+    <tbody>
+      <tr>
+        <th>Last modified
+        <td data-prop=updated>
+  </table>
+</section>
+
+<section id=entries hidden>
+  <h1>Entries</h1>
+
+  <template id=template-entry>
+    <section>
+      <h1>Entry</h1>
+      <table>
+        <tbody>
+          <tr>
+            <th>Web page URL
+            <td data-prop=page_url>
+        <tbody>
+          <tr>
+            <th>Title
+            <td data-prop=title>
+          <tr>
+            <th>Summary
+            <td data-prop=summary>
+          <tr>
+            <th>Content
+            <td data-prop=content>
+        <tbody>
+          <tr>
+            <th>Published
+            <td data-prop=published>
+          <tr>
+            <th>Updated
+            <td data-prop=updated>
+          <tr>
+            <th>Duration
+            <td data-prop=duration>
+      </table>
+    </section>
+  </template>
+</section>
+
+<template id=template-datetime>
+  time (<time></time>)
+</template>
+
+<template id=template-node>
+  DOM: <pre></pre>
+</template>
+
+<script>
+  var feedProps = document.querySelector ('#feed-props');
+  var entriesSection = document.querySelector ('#entries');
+
+  function fillResult (json) {
+    Array.prototype.forEach.call (feedProps.querySelectorAll ('[data-prop]'), function (el) {
+      setPropValue (el, json.parsed[el.getAttribute ('data-prop')]);
+    });
+    Array.prototype.forEach.call (entriesSection.querySelectorAll ('section'), function (el) {
+      if (el.parentNode) el.parentNode.removeChild (el);
+    });
+    var entryTemplate = entriesSection.querySelector ('#template-entry');
+    json.parsed.entries.forEach (function (entry) {
+      var f = entryTemplate.content.cloneNode (true);
+      Array.prototype.forEach.call (f.querySelectorAll ('[data-prop]'), function (el) {
+        setPropValue (el, entry[el.getAttribute ('data-prop')]);
+      });
+      entryTemplate.parentNode.appendChild (f);
+    });
+    feedProps.hidden = false;
+    entriesSection.hidden = false;
+  } // fillResult
+
+  function setPropValue (el, value) {
+    if (value == null) {
+      el.textContent = '(null)';
+    } else if (value instanceof Array) {
+      if (value[0] === 'datetime') {
+        el.textContent = '';
+        var template = document.querySelector ('#template-datetime');
+        el.appendChild (template.content.cloneNode (true));
+        var time = el.querySelector ('time');
+        time.textContent = new Date (value[1] * 1000).toLocaleString ();
+        time.dateTime = new Date (value[1] * 1000).toISOString ();
+      } else if (value[0] === 'node') {
+        el.textContent = '';
+        var template = document.querySelector ('#template-node');
+        el.appendChild (template.content.cloneNode (true));
+        el.querySelector ('pre').textContent = value[1];
+      } else {
+        el.textContent = value;
+      }
+    } else {
+      el.innerHTML = '<code></code>';
+      el.firstChild.textContent = value;
+    }
+  } // setPropValue
+</script>
+
+<script>
+  var params = {};
+  location.search.replace (/^\?/, '').split (/&/).forEach (function (_) {
+    var nv = _.split (/=/, 2);
+    params[decodeURIComponent (nv[0])] = decodeURIComponent (nv[1]);
+  });
+  if (params.url) {
+    var input = document.querySelector ('input[name=url]');
+    input.value = params.url;
+    input.form.querySelector ('[type=submit]').click ();
+  }
+</script>
