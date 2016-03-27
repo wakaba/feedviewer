@@ -75,6 +75,16 @@ button {
   max-height: 5em;
 }
 
+pre {
+  margin: 0;
+  padding: .5rem;
+  font-size: 90%;
+  background: white;
+  color: black;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
 footer {
   display: block;
   margin-top: 1em;
@@ -82,6 +92,11 @@ footer {
   background: #eee;
   color: black;
   text-align: center;
+}
+
+h1 > a {
+  color: inherit;
+  text-decoration: none;
 }
 
 /*

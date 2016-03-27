@@ -3,7 +3,7 @@
 <title>Feed viewer</title>
 <link rel=stylesheet href=/css>
 
-<h1>Feed viewer</h1>
+<h1><a href=/ rel=index>Feed viewer</a></h1>
 
 <form action=javascript: onsubmit="
   var fd = new FormData (this);
@@ -13,7 +13,11 @@
   status.querySelector ('progress').hidden = false;
   status.hidden = false;
   fetch ('/viewer', {method: 'POST', body: fd}).then (function (res) {
-    return res.json ();
+    if (res.status === 200) {
+      return res.json ();
+    } else {
+      return {error: res.status};
+    }
   }).then (function (json) {
     if (json.ok) {
       fillResult (json);
