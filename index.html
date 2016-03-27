@@ -26,9 +26,15 @@
   });
   history.pushState (null, null, location.pathname + '?url=' + encodeURIComponent (elements.url.value));
 ">
-  <p><label><strong>URL</strong>: <input type=url name=url required></label>
-  <p><button type=submit>Show</button>
-
+  <table>
+    <tbody>
+      <tr>
+        <th><label for=input-url>URL</label>
+        <td><input type=url name=url id=input-url required>
+    <tfoot>
+      <tr>
+        <td colspan=2><button type=submit>Show</button>
+  </table>
   <p class=status hidden><progress></progress> <span class=message></span>
 </form>
 
@@ -64,7 +70,7 @@
         <td data-prop=subtitle>
       <tr>
         <th>Description
-        <td data-prop=description>
+        <td data-prop=desc>
     <tbody>
       <tr>
         <th>Last modified
@@ -124,16 +130,16 @@
 </section>
 
 <template id=template-datetime>
-  Date: <time></time>
+  <strong>Date</strong>: <time></time>
 </template>
 
 <template id=template-node>
-  DOM: <pre></pre>
+  <strong>DOM</strong>: <pre></pre>
 </template>
 
 <template id=template-image>
   <div>
-    Image:
+    <strong>Image</strong>:
     <table class=image>
       <tbody>
         <tr>
@@ -151,7 +157,7 @@
 
 <template id=template-enclosure>
   <div>
-    Enclosure:
+    <strong>Enclosure</strong>:
     <table class=enclosure>
       <tbody>
         <tr>
@@ -169,7 +175,7 @@
 
 <template id=template-person>
   <div>
-    Person:
+    <strong>Person</strong>:
     <table class=person>
       <tbody>
         <tr>
