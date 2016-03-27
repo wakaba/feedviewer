@@ -24,7 +24,7 @@
       status.querySelector ('progress').hidden = true;
     }
   });
-  history.replaceState (null, null, location.pathname + '?url=' + encodeURIComponent (elements.url.value));
+  history.pushState (null, null, location.pathname + '?url=' + encodeURIComponent (elements.url.value));
 ">
   <p><label><strong>URL</strong>: <input type=url name=url required></label>
   <p><button type=submit>Show</button>
@@ -39,16 +39,22 @@
     <tbody>
       <tr>
         <th>Web page URL
-        <td data-prop=page_url>
+        <td data-prop=page_url data-type=url>
       <tr>
         <th>Feed URL
-        <td data-prop=feed_url>
+        <td data-prop=feed_url data-type=url>
       <tr>
         <th>Previous feed URL
-        <td data-prop=prev_feed_url>
+        <td data-prop=prev_feed_url data-type=url>
       <tr>
         <th>Next feed URL
-        <td data-prop=next_feed_url>
+        <td data-prop=next_feed_url data-type=url>
+      <tr>
+        <th>Icon
+        <td data-prop=icon data-type=image>
+      <tr>
+        <th>Logo
+        <td data-prop=logo data-type=image>
     <tbody>
       <tr>
         <th>Title
@@ -63,6 +69,9 @@
       <tr>
         <th>Last modified
         <td data-prop=updated>
+      <tr>
+        <th>Authors
+        <td data-prop=authors data-type=person-list>
   </table>
 </section>
 
@@ -76,7 +85,10 @@
         <tbody>
           <tr>
             <th>Web page URL
-            <td data-prop=page_url>
+            <td data-prop=page_url data-type=url>
+          <tr>
+            <th>Thumbnail
+            <td data-prop=thumbnail data-type=image>
         <tbody>
           <tr>
             <th>Title
@@ -87,6 +99,15 @@
           <tr>
             <th>Content
             <td data-prop=content>
+          <tr>
+            <th>Duration
+            <td data-prop=duration>
+          <tr>
+            <th>Enclosures
+            <td data-prop=enclosures data-type=enclosure-list>
+          <tr>
+            <th>Categories
+            <td data-prop=categories data-type=category-set>
         <tbody>
           <tr>
             <th>Published
@@ -95,19 +116,76 @@
             <th>Updated
             <td data-prop=updated>
           <tr>
-            <th>Duration
-            <td data-prop=duration>
+            <th>Authors
+            <td data-prop=authors data-type=person-list>
       </table>
     </section>
   </template>
 </section>
 
 <template id=template-datetime>
-  time (<time></time>)
+  Date: <time></time>
 </template>
 
 <template id=template-node>
   DOM: <pre></pre>
+</template>
+
+<template id=template-image>
+  <div>
+    Image:
+    <table class=image>
+      <tbody>
+        <tr>
+          <th>URL
+          <td data-prop=url data-type=image-url>
+        <tr>
+          <th>Height
+          <td data-prop=height>
+        <tr>
+          <th>Width
+          <td data-prop=width>
+    </table>
+  </div>
+</template>
+
+<template id=template-enclosure>
+  <div>
+    Enclosure:
+    <table class=enclosure>
+      <tbody>
+        <tr>
+          <th>URL
+          <td data-prop=url data-type=url>
+        <tr>
+          <th>MIME type
+          <td data-prop=type>
+        <tr>
+          <th>File size
+          <td data-prop=length>
+    </table>
+  </div>
+</template>
+
+<template id=template-person>
+  <div>
+    Person:
+    <table class=person>
+      <tbody>
+        <tr>
+          <th>Name
+          <td data-prop=name>
+        <tr>
+          <th>Email
+          <td data-prop=email>
+        <tr>
+          <th>Page URL
+          <td data-prop=page-url data-type=url>
+        <tr>
+          <th>Icon
+          <td data-prop=icon data-type=image>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -134,8 +212,62 @@
   } // fillResult
 
   function setPropValue (el, value) {
+    var type = el.getAttribute ('data-type');
     if (value == null) {
       el.textContent = '(null)';
+    } else if (type === 'url') {
+      el.innerHTML = '<a rel=noreferrer target=page><code></code></a>';
+      el.firstChild.firstChild.textContent = value;
+      el.firstChild.href = value;
+    } else if (type === 'image-url') {
+      el.innerHTML = '<a rel=noreferrer target=page><img><code></code></a>';
+      el.firstChild.firstChild.src = value;
+      el.firstChild.lastChild.textContent = value;
+      el.firstChild.href = value;
+    } else if (type === 'person-list') {
+      if (value.length) {
+        el.textContent = '';
+        var template = document.querySelector ('#template-person');
+        value.forEach (function (person) {
+          var f = template.content.cloneNode (true);
+          Array.prototype.forEach.call (f.querySelectorAll ('[data-prop]'), function (el) {
+            setPropValue (el, person[el.getAttribute ('data-prop')]);
+          });
+          el.appendChild (f);
+        });
+      } else {
+        el.textContent = '(empty)';
+      }
+    } else if (type === 'enclosure-list') {
+      if (value.length) {
+        el.textContent = '';
+        var template = document.querySelector ('#template-enclosure');
+        value.forEach (function (en) {
+          var f = template.content.cloneNode (true);
+          Array.prototype.forEach.call (f.querySelectorAll ('[data-prop]'), function (el) {
+            setPropValue (el, en[el.getAttribute ('data-prop')]);
+          });
+          el.appendChild (f);
+        });
+      } else {
+        el.textContent = '(empty)';
+      }
+    } else if (type === 'image') {
+      el.textContent = '';
+      var template = document.querySelector ('#template-image');
+      var f = template.content.cloneNode (true);
+      Array.prototype.forEach.call (f.querySelectorAll ('[data-prop]'), function (el) {
+        setPropValue (el, value[el.getAttribute ('data-prop')]);
+      });
+      el.appendChild (f);
+    } else if (type === 'category-set') {
+      el.textContent = '';
+      for (c in value) {
+        el.appendChild (document.createTextNode (' '));
+        var d = document.createElement ('data');
+        d.textContent = c;
+        el.appendChild (d);
+      }
     } else if (value instanceof Array) {
       if (value[0] === 'datetime') {
         el.textContent = '';
@@ -153,7 +285,7 @@
         el.textContent = value;
       }
     } else {
-      el.innerHTML = '<code></code>';
+      el.innerHTML = '<data></data>';
       el.firstChild.textContent = value;
     }
   } // setPropValue
