@@ -85,6 +85,11 @@ pre {
   word-break: break-all;
 }
 
+code {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
 footer {
   display: block;
   margin-top: 1em;
