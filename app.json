@@ -1,0 +1,7 @@
+{
+  "name": "feedviewer",
+  "website": "https://github.com/wakaba/feedviewer",
+  "buildpacks": [
+    {"url": "https://github.com/wakaba/heroku-buildpack-perl-pmbp"}
+  ]
+}
