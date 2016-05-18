@@ -22,8 +22,8 @@ IO::Compress::Bzip2~2.069
 common::sense~3.74
 Unicode::Stringprep~1.105
 Scalar::Util~1.45
-Types::Serialiser~1.0
 IO::Handle~1.28
+Types::Serialiser~1.0
 LWP::MediaTypes~6.02
 Encode::Locale~1.05
 Unicode::Normalize~1.25
@@ -31,7 +31,6 @@ Path::Tiny~0.090
 URI~1.71
 Test::Tester~1.302015
 Time::HiRes~1.9733
-Exporter~5.72
 Carp~1.38
 HTTP::Date~6.02
 Proc::Wait3~0.05
