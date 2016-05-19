@@ -29,7 +29,7 @@ Encode::Locale~1.05
 Unicode::Normalize~1.25
 Path::Tiny~0.090
 URI~1.71
-Test::Tester~1.302015
+Test::Tester~1.302019
 Time::HiRes~1.9733
 Carp~1.38
 HTTP::Date~6.02
