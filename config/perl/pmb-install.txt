@@ -29,8 +29,8 @@ Encode::Locale~1.05
 Unicode::Normalize~1.25
 Path::Tiny~0.094
 URI~1.71
-Test::Tester~1.302033
-Time::HiRes~1.9737
+Test::Tester~1.302035
+Time::HiRes~1.9738
 Carp~1.38
 HTTP::Date~6.02
 Proc::Wait3~0.05
