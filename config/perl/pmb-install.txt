@@ -11,7 +11,6 @@ Time::Local~1.2300
 AnyEvent~7.12
 parent~0.234
 Exporter::Lite~0.08
-ExtUtils::MakeMaker~7.18
 AnyEvent::HTTP~2.22
 Canary::Stability~2011
 Compress::Raw::Zlib~2.069
@@ -30,7 +29,7 @@ Encode::Locale~1.05
 Unicode::Normalize~1.25
 Path::Tiny~0.096
 URI~1.71
-Test::Tester~1.302037
+Test::Tester~1.302040
 Time::HiRes~1.9739
 Carp~1.38
 HTTP::Date~6.02
