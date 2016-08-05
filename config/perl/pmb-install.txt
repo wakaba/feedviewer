@@ -6,7 +6,7 @@ Carp~1.38
 Compress::Raw::Bzip2~2.069
 Compress::Raw::Zlib~2.069
 Cwd~3.62
-Encode~2.84
+Encode~2.85
 Encode::Locale~1.05
 Exporter::Lite~0.08
 File::Path~2.12
