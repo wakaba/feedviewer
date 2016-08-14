@@ -19,7 +19,7 @@ IO::Handle~1.28
 JSON::XS~3.02
 LWP::MediaTypes~6.02
 MIME::Base64~3.15
-Net::SSLeay~1.77
+Net::SSLeay~1.78
 Path::Class~0.36
 Path::Tiny~0.096
 Pod::Text~4.07
@@ -27,9 +27,9 @@ Pod::Usage~1.69
 Proc::Wait3~0.05
 Scalar::Util~1.45
 Test::NoWarnings~1.04
-Test::Tester~1.302049
+Test::Tester~1.302052
 Time::HiRes~1.9739
-Time::Local~1.2300
+Time::Local~1.24
 Types::Serialiser~1.0
 URI~1.71
 Unicode::Normalize~1.25
