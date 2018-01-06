@@ -1,5 +1,6 @@
 AnyEvent~7.14
 AnyEvent::HTTP~2.23
+AnyEvent::Util
 Canary::Stability~2012
 Carp~1.38
 Cwd~3.62
@@ -22,7 +23,7 @@ Pod::Text~4.10
 Pod::Usage~1.69
 Proc::Wait3~0.05
 Scalar::Util~1.49
-Time::HiRes~1.9751
+Time::HiRes~1.9752
 Time::Local~1.25
 Types::Serialiser~1.0
 URI~1.72
