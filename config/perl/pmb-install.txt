@@ -4,7 +4,7 @@ AnyEvent::IO
 Canary::Stability~2012
 Carp~1.38
 Cwd~3.62
-Encode~2.93
+Encode~2.94
 Encode::Locale~1.05
 Exporter::Lite~0.08
 File::Path~2.15
@@ -26,6 +26,6 @@ Scalar::Util~1.49
 Time::HiRes~1.9752
 Time::Local~1.25
 Types::Serialiser~1.0
-URI~1.72
+URI~1.73
 common::sense~3.74
 parent~0.236
