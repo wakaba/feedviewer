@@ -1,6 +1,6 @@
 AnyEvent~7.15
 AnyEvent::HTTP~2.24
-AnyEvent::IO
+AnyEvent::Util
 Canary::Stability~2012
 Carp~1.50
 Cwd~3.75
@@ -13,7 +13,7 @@ HTTP::Date~6.02
 HTTP::Response~6.18
 IO::HTML~1.001
 IO::Handle~1.39
-JSON::XS~4.01
+JSON::XS~4.02
 LWP::MediaTypes~6.02
 MIME::Base64~3.15
 Net::SSLeay~1.85
