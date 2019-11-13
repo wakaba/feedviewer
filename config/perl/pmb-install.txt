@@ -8,8 +8,8 @@ Encode::Locale~1.05
 Exporter::Lite~0.08
 File::Path~2.16
 File::Temp~0.2309
-HTTP::Date~6.02
-HTTP::Request~6.18
+HTTP::Date~6.03
+HTTP::Response~6.18
 IO::HTML~1.001
 IO::Handle~1.39
 JSON::XS~4.02
@@ -24,6 +24,7 @@ Proc::Wait3~0.05
 Scalar::Util~1.53
 Time::HiRes~1.9760
 Time::Local~1.28
+Time::Zone~2.24
 Types::Serialiser~1.0
 URI~1.76
 common::sense~3.74
