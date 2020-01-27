@@ -25,7 +25,7 @@ Pod::Usage~1.69
 Proc::Wait3~0.05
 Scalar::Util~1.53
 Time::HiRes~1.9760
-Time::Local~1.28
+Time::Local~1.30
 Time::Zone~2.24
 Types::Serialiser~1.0
 URI~1.76
