@@ -10,7 +10,7 @@ Exporter::Lite~0.08
 File::Path~2.16
 File::Temp~0.2309
 HTTP::Date~6.05
-HTTP::Response~6.22
+HTTP::Request~6.22
 IO::HTML~1.001
 IO::Handle~1.42
 JSON::XS~4.02
