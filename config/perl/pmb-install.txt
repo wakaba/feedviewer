@@ -10,7 +10,7 @@ Exporter::Lite~0.08
 File::Path~2.17
 File::Temp~0.2311
 HTTP::Date~6.05
-HTTP::Request~6.26
+HTTP::Response~6.26
 IO::HTML~1.004
 IO::Handle~1.42
 JSON::XS~4.02
@@ -30,6 +30,6 @@ Time::HiRes~1.9764
 Time::Local~1.30
 Time::Zone~2.24
 Types::Serialiser~1.0
-URI~1.76
+URI~5.05
 common::sense~3.75
 parent~0.238
