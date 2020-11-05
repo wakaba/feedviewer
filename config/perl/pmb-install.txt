@@ -13,7 +13,7 @@ HTTP::Date~6.05
 HTTP::Response~6.26
 IO::HTML~1.004
 IO::Handle~1.42
-JSON::XS~4.02
+JSON::XS~4.03
 LWP::MediaTypes~6.04
 MIME::Base64~3.16
 Method::WeakCallback~0.04
