@@ -21,6 +21,8 @@ else
 endif
 	$(MAKE) pmbp-install
 
+deps-circleci: deps
+
 deps-docker: pmbp-install
 
 git-submodules:
@@ -52,6 +54,14 @@ create-commit-for-heroku:
 	git add -f modules/*/*
 	git commit -m "for heroku"
 
+## ------ Build ------
+
+PERL = ./perl
+
+build:
+
+
+
 ## ------ Tests ------
 
 PROVE = ./prove
@@ -62,6 +72,11 @@ test-deps: deps
 
 test-main:
 	#$(PROVE) t/*.t
+
+## ------ Deployment ------
+
+deploy-master:
+	$(CURL) -sSf $$DEPLOY_KICK_URL
 
 always:
 
